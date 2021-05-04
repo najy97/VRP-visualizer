@@ -8,7 +8,7 @@ class Vehicle():
     def __init__(self,screen,start,target,rad=25):
         self.rad=rad
         self.completes = 0
-        self.speed = 30
+        self.speed = 10
         self.node_current = np.array(start)
         self.targets = np.array(target)
         self.set_target()
@@ -30,7 +30,7 @@ class Vehicle():
         if len(self.targets)!=0:
             distance = self.node_current - self.targets[0]
             distance = np.linalg.norm(distance)
-            if distance < self.rad:
+            if distance < self.speed:
                 self.completes+=1
                 if len(self.targets==0):
                     self.targets=self.targets[1:]
@@ -42,6 +42,6 @@ class Vehicle():
             return True
     
     def set_target(self):
-        self.velocity = (self.targets[0]-self.node_current)
+        self.velocity = (np.array(self.targets[0])-np.array(self.node_current)+[0.0001,0.0001])
         self.velocity = list((self.velocity/np.linalg.norm(self.velocity))*self.speed)
 
