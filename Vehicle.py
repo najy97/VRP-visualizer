@@ -6,6 +6,7 @@ import numpy as np
 
 class Vehicle():
     def __init__(self,screen,start,target,rad=25):
+        self.rad=rad
         self.completes = 0
         self.speed = 10
         self.node_current = np.array(start)
@@ -21,20 +22,21 @@ class Vehicle():
         self.vehicle.move_ip(self.velocity)
         self.node_current = self.vehicle.center
         pygame.draw.ellipse(self.screen,(0, 0, 255),self.vehicle)
+        self.set_target()
         
     def isArrived(self):
         distance = self.node_current - self.targets[0]
         distance = np.linalg.norm(distance)
-        print('distance',distance)
-        if distance < self.speed:
-            self.targets=self.targets[1:]
-            self.set_target()
+        if distance < self.rad:
             self.completes+=1
-            print('completes:',self.completes)
-            return True
+            if len(self.targets==0):
+                self.targets=self.targets[1:]
+            else : 
+                return True
         else:
             return False
     
     def set_target(self):
         self.velocity = (self.targets[0]-self.node_current)
         self.velocity = list((self.velocity/np.linalg.norm(self.velocity))*self.speed)
+
