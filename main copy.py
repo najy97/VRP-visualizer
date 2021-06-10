@@ -30,7 +30,7 @@ for idx,id in enumerate(target_id2):
 customers2 = {0:{}, 1:{}}
 
 # vehicle setting 
-vehicle1 = IVehicle.Vehicle(screen,[400,300],target_node1,target_id1,(200,0,0))
+vehicle1 = IVehicle.Vehicle(screen,[500,200],target_node1,target_id1,(200,0,0))
 vehicle2 = IVehicle.Vehicle(screen,[1300, 450],target_node2,target_id2,(0,200,0))
 vehicles = [vehicle1,vehicle2]
 counter_show = 0
@@ -68,7 +68,7 @@ while running:
                     customers2[idx][vehicle.id[0]].received = True
                     vehicle.id = vehicle.id[1:]
 
-    if vehicle1.count_done == 3 and flag_cus==True:
+    if vehicle1.count_done == 2 and flag_cus==True:
         target_node1 = [[783, 481],[450, 824],[191, 679],[198, 174]]
         target_id1 = [14,15,16,17]
         target_node2 = [[1028, 383],[896, 139],[1133, 20],[1441, 651]]
