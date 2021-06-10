@@ -5,20 +5,24 @@ from pygame.rect import *
 import numpy as np
 
 class Vehicle():
-    # input
-    # pygame screen
-    # 시작 좌표
-    # 목표 좌표 리스트
-    # 차량 id
-    # (도형 반지름)
-    def __init__(self,screen,start,target,id,rad=25):
+    '''
+    input :
+        pygame screen
+        시작 좌표
+        목표 좌표 리스트
+        차량 id
+        (도형 반지름)
+    '''
+    def __init__(self,screen,start,target,id,color, rad=25):
         self.id = id # 차량 번호
         self.speed = 5 # 차량 속도
+        self.color = color
         self.node_current = np.array(start) # 시작 위치(depot)
         self.targets = np.array(target) # 목표 노드
         self.set_target() # 속도 설정
         self.screen = screen # 스크린 설정
         self.node_previous = self.node_current
+        self.count_done = 0
 
         # (차량 이미지) 오픈
         self.img_deliver = pygame.image.load("delivery.png")
@@ -28,7 +32,7 @@ class Vehicle():
         self.rect = self.img_deliver.get_rect()
         # (차량 이미지) 초기 위치 설정
         self.rect.center = start[0],start[1]
-        # (차량 이미지) 각도, 크기 조절
+        # (차량 이미지) 각도, 크기 조절 - 사용 안함
         self.img_deliver = pygame.transform.rotozoom(self.img_deliver, 0, 1)
 
         # (차량 이미지) 출력
@@ -61,6 +65,7 @@ class Vehicle():
             distance = np.linalg.norm(distance)
             # 거리가 1 tick당 이동량 보다 작을 때
             if distance < self.speed:
+                self.count_done += 1
                 # 경로 출력용 노드 저장
                 self.node_previous = self.targets[0]
                 # 도착한 target을 target 리스트에서 삭제
@@ -82,7 +87,7 @@ class Vehicle():
 
     def draw_path(self):
         if len(self.targets) > 0:
-           pygame.draw.line(self.screen, (0,0,0), self.node_previous, self.targets[0], 1)
+           pygame.draw.line(self.screen, self.color, self.node_current, self.targets[0], 5)
         if len(self.targets) > 1:
             for idx in range(len(self.targets)-1):
-                pygame.draw.line(self.screen, (0,0,0), self.targets[idx], self.targets[idx+1], 1)
+                pygame.draw.line(self.screen, self.color, self.targets[idx], self.targets[idx+1], 5)
