@@ -51,22 +51,22 @@ while running:
     
     screen.blit(background, (0, 0))
 
-    if counter_show > 60 and flag_veh:
-        for idx, vehicle in enumerate(vehicles):
-            vehicle.draw_path()
-            vehicle.move()
-            if vehicle.isArrived():
-                if len(vehicle.id) != 0:
-                    customers[idx][vehicle.id[0]].received = True
-                    vehicle.id = vehicle.id[1:]
-    if flag_veh == False:
-        for idx, vehicle in enumerate(vehicles):
-            vehicle.draw_path()
-            vehicle.move()
-            if vehicle.isArrived():
-                if len(vehicle.id) != 0:
-                    customers2[idx][vehicle.id[0]].received = True
-                    vehicle.id = vehicle.id[1:]
+    # if counter_show > 60 and flag_veh:
+    #     for idx, vehicle in enumerate(vehicles):
+    #         vehicle.draw_path()
+    #         vehicle.move()
+    #         if vehicle.isArrived():
+    #             if len(vehicle.id) != 0:
+    #                 customers[idx][vehicle.id[0]].received = True
+    #                 vehicle.id = vehicle.id[1:]
+    # if flag_veh == False:
+    #     for idx, vehicle in enumerate(vehicles):
+    #         vehicle.draw_path()
+    #         vehicle.move()
+    #         if vehicle.isArrived():
+    #             if len(vehicle.id) != 0:
+    #                 customers2[idx][vehicle.id[0]].received = True
+    #                 vehicle.id = vehicle.id[1:]
 
     if vehicle1.count_done == 2 and flag_cus==True:
         target_node1 = [[783, 481],[450, 824],[191, 679],[198, 174]]
